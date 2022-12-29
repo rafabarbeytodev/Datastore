@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.rafabarbeytodev.android.kotlin.datastore.ui.viewmodel.DataStoreViewModel"/>
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/action_SettingsFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.SettingsFragment">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_marginTop="@dimen/common_padding_min"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMailDestination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_max"
+        android:layout_marginTop="@dimen/margin_max"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:hint="@string/preferences_hint_mail"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressbar"
+        app:startIconContentDescription="@string/content_description_mail_icon"
+        app:startIconDrawable="@drawable/ic_baseline_mail_outline_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMailDestination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.destinationMail}"
+            android:textStyle="bold"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTelephoneDestination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_max"
+        android:layout_marginTop="@dimen/margin_max"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:hint="@string/preferences_hint_telephone"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilMailDestination"
+        app:startIconContentDescription="@string/content_description_telephone_icon"
+        app:startIconDrawable="@drawable/ic_baseline_phone_to_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTelephoneDestination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.destinationTelephone}"
+            android:textStyle="bold"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/dv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerInsetStart="16dp"
+        app:dividerInsetEnd="16dp"
+        android:layout_marginTop="@dimen/margin_max"
+        app:layout_constraintTop_toBottomOf="@id/tilTelephoneDestination"
+        app:layout_constraintBottom_toTopOf="@id/smActivation"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/smActivation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding_min"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:textAlignment="textEnd"
+        android:text="@string/Activation"
+        android:checked="@={viewModel.activation}"
+        app:layout_constraintTop_toBottomOf="@+id/dv1"
+        app:layout_constraintBottom_toTopOf="@id/dv2"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/dv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerInsetStart="16dp"
+        app:dividerInsetEnd="16dp"
+        android:layout_marginTop="@dimen/margin_max"
+        app:layout_constraintTop_toBottomOf="@id/smActivation"
+        app:layout_constraintBottom_toTopOf="@id/smFilterWords"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/smFilterWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="@={viewModel.filterWords}"
+        android:text="@string/text_filter_words"
+        android:layout_marginTop="@dimen/margin_max"
+        android:layout_marginEnd="@dimen/margin_max"
+
+        app:layout_constraintTop_toBottomOf="@+id/dv2"
+        app:layout_constraintBottom_toTopOf="@id/tilFilterWords"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFilterWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_max"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:hint="@string/preferences_hint_filter_words"
+        android:enabled="false"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/smFilterWords"
+        app:startIconContentDescription="@string/content_description_telephone_icon"
+        app:startIconDrawable="@drawable/ic_baseline_filter_alt_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFilterWords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.keywords}"
+            android:textStyle="bold"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/dv3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerInsetStart="16dp"
+        app:dividerInsetEnd="16dp"
+        android:layout_marginTop="@dimen/margin_max"
+        app:layout_constraintTop_toBottomOf="@id/tilFilterWords"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/smFilterSenders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="@={viewModel.filterSenders}"
+        android:text="@string/text_filter_senders"
+        android:layout_marginTop="@dimen/margin_max"
+        android:layout_marginEnd="@dimen/margin_max"
+        app:layout_constraintTop_toBottomOf="@+id/dv3"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFilterSenders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_max"
+        android:layout_marginEnd="@dimen/margin_max"
+        android:hint="@string/preferences_hint_filter_sender"
+        android:enabled="false"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/smFilterSenders"
+        app:startIconContentDescription="@string/content_description_telephone_icon"
+        app:startIconDrawable="@drawable/ic_baseline_filter_alt_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFilterSenders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.sendersFiltered}"
+            android:textStyle="bold"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnGetSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:onClick="@{() ->viewModel.getDataStore()}"
+        app:layout_constraintTop_toBottomOf="@id/tilFilterSenders"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

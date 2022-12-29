@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Datastore</string>
+
+    <string name="text_title_switch_red">Activate Red color</string>
+    <string name="text_title_switch_green">Activate Green color</string>
+    <string name="text_title_switch_blue">Activate Blue color</string>
+    <string name="descriptionImageSettings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="radioButton_text_red">Red</string>
+    <string name="radioButton_text_green">Green</string>
+    <string name="radioButton_text_blue">Blue</string>
+    <string name="text_color_red">RED</string>
+    <string name="text_color_blue">BLUE</string>
+    <string name="text_color_green">GREEN</string>
+    <string name="text_color_black">Ningún color seleccionado</string>
+    <string name="content_description_mail_icon">Destination mail</string>
+    <string name="preferences_hint_mail">Destination mail</string>
+    <string name="content_description_telephone_icon">Destination Telephone</string>
+    <string name="preferences_hint_telephone">Destination Telephone</string>
+    <string name="Activation">Activation SMS forwarding</string>
+    <string name="text_filter_words">Filter by words</string>
+    <string name="text_filter_senders">Filter by senders</string>
+    <string name="preferences_hint_filter_words">Words filter (separated by ;)</string>
+    <string name="preferences_hint_filter_sender">Senders filter (separated by ;)</string>
+</resources>
