@@ -65,12 +65,19 @@ class DataStoreViewModel @Inject constructor(
                 mSettingsRepository.readDataStore().collect {
                     userPreferences.postValue(it)
                 }
-            } catch (e: Exception) {
-                // dataStore.data throws an IOException when an error is encountered when reading data
-                if (e is java.lang.NullPointerException) {
-                    userPreferences.value?.destinationMail = ""
+            } catch (error: Exception) {
+                if (error is java.lang.NullPointerException) {
+                    with(userPreferences){
+                        value?.destinationMail = ""
+                        value?.destinationTelephone = ""
+                        value?.sendersFiltered = ""
+                        value?.keywords = ""
+                        value?.filterSenders = false
+                        value?.filterWords = false
+                        value?.activation = true
+                    }
                 } else {
-                    throw e
+                    throw error
                 }
             }
         }
