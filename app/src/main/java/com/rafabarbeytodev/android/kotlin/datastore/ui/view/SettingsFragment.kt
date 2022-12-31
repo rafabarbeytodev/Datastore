@@ -1,6 +1,7 @@
 package com.rafabarbeytodev.android.kotlin.datastore.ui.view
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,18 +24,41 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupNavigation(view)
-        offProgressBar()
         setupViewModel()
+        offProgressBar()
 
+        mBinding.smFilterWords.setOnClickListener {
+            mDataStoreViewModel.filterWords.value = mBinding.smFilterWords.isChecked
+        }
+        mBinding.smFilterSenders.setOnClickListener {
+            mDataStoreViewModel.filterSenders.value = mBinding.smFilterSenders.isChecked
+        }
     }
 
-    private fun setupViewModel() {
+    private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
-        mDataStoreViewModel.getFilterSender().observe(viewLifecycleOwner) {
-            mBinding.tilFilterSenders.isEnabled = it
-        }
-        mDataStoreViewModel.getFilterWord().observe(viewLifecycleOwner) {
-            mBinding.tilFilterWords.isEnabled = it
+    private fun setupViewModel() {
+        with(mDataStoreViewModel) {
+            getDataStore()
+            with(mBinding) {
+                userPreferences.observe(viewLifecycleOwner) {
+                    etMailDestination.text = it.destinationMail.toEditable()
+                    etTelephoneDestination.text = it.destinationTelephone.toEditable()
+                    etFilterSenders.text = it.sendersFiltered.toEditable()
+                    tilFilterSenders.isEnabled = it.filterSenders
+                    etFilterWords.text = it.keywords.toEditable()
+                    tilFilterWords.isEnabled = it.filterWords
+                    smActivation.isChecked = it.activation
+                    smFilterWords.isChecked = it.filterWords
+                    smFilterSenders.isChecked = it.filterSenders
+                }
+                getFilterSender().observe(viewLifecycleOwner) {
+                    tilFilterSenders.isEnabled = it
+                }
+                getFilterWord().observe(viewLifecycleOwner) {
+                    tilFilterWords.isEnabled = it
+                }
+            }
         }
     }
 
@@ -54,7 +78,17 @@ class SettingsFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        mDataStoreViewModel.saveDataStore()
+        with(mDataStoreViewModel){
+            destinationMail.value = mBinding.etMailDestination.text.toString()
+            destinationTelephone.value =
+                mBinding.etTelephoneDestination.text.toString()
+            activation.value = mBinding.smActivation.isChecked
+            filterWords.value = mBinding.smFilterWords.isChecked
+            filterSenders.value = mBinding.smFilterSenders.isChecked
+            keywords.value = mBinding.etFilterWords.text.toString()
+            sendersFiltered.value = mBinding.etFilterSenders.text.toString()
+            saveDataStore()
+        }
     }
 
     private fun setupNavigation(view: View) {

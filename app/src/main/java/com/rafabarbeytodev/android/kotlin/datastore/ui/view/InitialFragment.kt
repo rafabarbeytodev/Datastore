@@ -30,9 +30,14 @@ class InitialFragment : Fragment() {
     private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 
     private fun setupViewModel() {
+        mDataStoreViewModel.getDataStore()
+        mDataStoreViewModel.userPreferences.observe(viewLifecycleOwner){
+            mBinding.etFilterSenders.text = it.destinationMail.toEditable()
+        }
         mDataStoreViewModel.destinationMail.observe(viewLifecycleOwner) {
             mBinding.etFilterSenders.text = it.toEditable()
         }
+
     }
 
     override fun onCreateView(

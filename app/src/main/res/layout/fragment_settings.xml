@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:visibility="visible"
         android:layout_marginTop="@dimen/common_padding_min"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -42,7 +43,7 @@
             android:id="@+id/etMailDestination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewModel.destinationMail}"
+            android:text="@{viewModel.destinationMail}"
             android:textStyle="bold"
             android:maxLines="1"/>
 
@@ -66,7 +67,7 @@
             android:id="@+id/etTelephoneDestination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewModel.destinationTelephone}"
+            android:text="@{viewModel.destinationTelephone}"
             android:textStyle="bold"
             android:maxLines="1"/>
 
@@ -90,7 +91,7 @@
         android:layout_marginEnd="@dimen/margin_max"
         android:textAlignment="textEnd"
         android:text="@string/Activation"
-        android:checked="@={viewModel.activation}"
+        android:checked="@{viewModel.activation}"
         app:layout_constraintTop_toBottomOf="@+id/dv1"
         app:layout_constraintBottom_toTopOf="@id/dv2"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -109,7 +110,7 @@
         android:id="@+id/smFilterWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="@={viewModel.filterWords}"
+        android:checked="@{viewModel.filterWords}"
         android:text="@string/text_filter_words"
         android:layout_marginTop="@dimen/margin_max"
         android:layout_marginEnd="@dimen/margin_max"
@@ -126,7 +127,6 @@
         android:layout_marginStart="@dimen/margin_max"
         android:layout_marginEnd="@dimen/margin_max"
         android:hint="@string/preferences_hint_filter_words"
-        android:enabled="false"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/smFilterWords"
@@ -137,7 +137,7 @@
             android:id="@+id/etFilterWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewModel.keywords}"
+            android:text="@{viewModel.keywords}"
             android:textStyle="bold"
             android:maxLines="1"/>
 
@@ -156,7 +156,7 @@
         android:id="@+id/smFilterSenders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="@={viewModel.filterSenders}"
+        android:checked="@{viewModel.filterSenders}"
         android:text="@string/text_filter_senders"
         android:layout_marginTop="@dimen/margin_max"
         android:layout_marginEnd="@dimen/margin_max"
@@ -170,7 +170,6 @@
         android:layout_marginStart="@dimen/margin_max"
         android:layout_marginEnd="@dimen/margin_max"
         android:hint="@string/preferences_hint_filter_sender"
-        android:enabled="false"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/smFilterSenders"
@@ -181,20 +180,11 @@
             android:id="@+id/etFilterSenders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={viewModel.sendersFiltered}"
+            android:text="@{viewModel.sendersFiltered}"
             android:textStyle="bold"
             android:maxLines="1"/>
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/btnGetSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:onClick="@{() ->viewModel.getDataStore()}"
-        app:layout_constraintTop_toBottomOf="@id/tilFilterSenders"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"

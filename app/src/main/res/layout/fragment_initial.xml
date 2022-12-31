@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Hola"
-        android:text="@={viewModel.destinationMail}"
+        android:text="@{viewModel.destinationMail}"
         android:textStyle="bold"
         android:maxLines="1"
         android:textAlignment="center"/>

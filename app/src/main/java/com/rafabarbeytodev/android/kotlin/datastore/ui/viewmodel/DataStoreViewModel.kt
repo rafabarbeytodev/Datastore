@@ -35,11 +35,11 @@ class DataStoreViewModel @Inject constructor(
 
     var userPreferences: MutableLiveData<UserPreferences> = MutableLiveData()
 
-    fun getFilterSender() : LiveData<Boolean> {
+    fun getFilterSender(): LiveData<Boolean> {
         return filterSenders
     }
 
-    fun getFilterWord() : LiveData<Boolean> {
+    fun getFilterWord(): LiveData<Boolean> {
         return filterWords
     }
 
@@ -47,13 +47,13 @@ class DataStoreViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             mSettingsRepository.saveDataStore(
                 UserPreferences(
-                    destinationMail = destinationMail.value!!,
-                    destinationTelephone = destinationTelephone.value!!,
-                    activation = activation.value!!,
-                    filterWords = filterWords.value!!,
-                    keywords = keywords.value!!,
-                    filterSenders = filterSenders.value!!,
-                    sendersFiltered = sendersFiltered.value!!
+                    destinationMail = destinationMail.value.orEmpty(),
+                    destinationTelephone = destinationTelephone.value.orEmpty(),
+                    activation = activation.value ?: true,
+                    filterWords = filterWords.value ?: false,
+                    keywords = keywords.value.orEmpty(),
+                    filterSenders = filterSenders.value ?: false,
+                    sendersFiltered = sendersFiltered.value.orEmpty()
                 )
             )
         }
@@ -61,9 +61,18 @@ class DataStoreViewModel @Inject constructor(
 
     fun getDataStore() {
         viewModelScope.launch(Dispatchers.IO) {
-            mSettingsRepository.readDataStore().collect {
+            try {
+                mSettingsRepository.readDataStore().collect {
                     userPreferences.postValue(it)
                 }
+            } catch (e: Exception) {
+                // dataStore.data throws an IOException when an error is encountered when reading data
+                if (e is java.lang.NullPointerException) {
+                    userPreferences.value?.destinationMail = ""
+                } else {
+                    throw e
+                }
+            }
         }
     }
 

@@ -45,17 +45,24 @@ class SettingsRepository(private val context: Context) : SettingsInterface {
         }
     }
 
-    override suspend fun readDataStore() = context.dataStore.data.map { preferences ->
+    override suspend fun readDataStore() = context.dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
             UserPreferences(
-                destinationMail = preferences[DESTINATION_MAIL]!!,
-                destinationTelephone = preferences[DESTINATION_TELEPHONE]!!,
-                activation = preferences[ACTIVATION]!!,
-                filterWords = preferences[FILTER_WORD]!!,
-                keywords = preferences[KEYWORDS]!!,
-                filterSenders = preferences[FILTER_SENDERS]!!,
-                sendersFiltered = preferences[SENDERS_FILTERED]!!
+                destinationMail = preferences[DESTINATION_MAIL].orEmpty(),
+                destinationTelephone = preferences[DESTINATION_TELEPHONE].orEmpty(),
+                activation = preferences[ACTIVATION] ?: true,
+                filterWords = preferences[FILTER_WORD] ?: false,
+                keywords = preferences[KEYWORDS].orEmpty(),
+                filterSenders = preferences[FILTER_SENDERS] ?: false,
+                sendersFiltered = preferences[SENDERS_FILTERED].orEmpty()
             )
         }
-
 }
 
